@@ -61,10 +61,10 @@ $footer = new FooterComponent();
                         </div>
                     </div>
                     <!-- Reply Form: Visible only when thread is expanded -->
-                    <div class="reply-form">
-                        <textarea placeholder="Type your reply here..."></textarea>
-                        <button type="button" class="send-reply-btn">Send Reply</button>
-                    </div>
+                    <form class="reply-form" action="send_reply.php" method="post">
+                        <input type="text" name="reply" placeholder="Type your reply here..." class="reply-input" required>
+                        <button type="submit" class="send-reply-btn">Send Reply</button>
+                    </form>
                 </div>
             </div>
 
