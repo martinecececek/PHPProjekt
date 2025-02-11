@@ -26,7 +26,7 @@ class HeaderCopoment
                 <div class="header-container">
                   <h1 class="site-title"><?= htmlspecialchars($this->title) ?></h1>
                     <?php if (empty($this->username)): ?>
-                        <button class="login-btn">Login</button>
+                        <a href="login.php" class="login-btn">Login</a>
                     <?php else: ?>
                         <button class="login-btn"><?= htmlspecialchars($this->username) ?></button>
                     <?php endif; ?>

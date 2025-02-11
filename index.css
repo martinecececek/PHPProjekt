@@ -1,13 +1,36 @@
 /* =========================
+   CSS Variables
+   ========================= */
+:root {
+    /* Colors */
+    --primary-color: #007bff;
+    --primary-dark: #0056b3;
+    --primary-darker: #003d7a;
+    --background-color: #f5f7fa;
+    --light-color: #fff;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+
+    /* Shadows */
+    --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 12px rgba(0, 123, 255, 0.2);
+
+    /* Fonts */
+    --font-family-base: Arial, sans-serif;
+}
+
+/* =========================
    Reset and Base Styles
    ========================= */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background: #f5f7fa;
-    font-family: Arial, sans-serif;
-    color: #333;
+    background: var(--background-color);
+    font-family: var(--font-family-base);
+    color: var(--text-color);
+    text-decoration: none !important;
 }
 
 /* Flex layout on body for sticky footer */
@@ -27,8 +50,8 @@ body {
    Header Styling
    ========================= */
 .site-header {
-    background: #007bff;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--light-color);
     padding: 15px 20px;
 }
 
@@ -46,8 +69,8 @@ body {
 }
 
 .login-btn {
-    background: #fff;
-    color: #007bff;
+    background: var(--light-color);
+    color: var(--primary-color);
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
@@ -66,20 +89,20 @@ body {
 .create-thread-link {
     display: inline-block;
     background: linear-gradient(45deg, #ffffff, #e6f2ff);
-    color: #007bff;
+    color: var(--primary-color);
     padding: 10px 20px;
     border-radius: 4px;
     text-decoration: none;
     font-size: 1em;
-    border: 1px solid #007bff;
+    border: 1px solid var(--primary-color);
     transition: background 0.3s ease, color 0.3s ease;
     margin-left: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-light);
 }
 
 .create-thread-link:hover {
-    background: #007bff;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--light-color);
 }
 
 /* =========================
@@ -93,9 +116,9 @@ body {
 }
 
 .thread {
-    background: #fff;
+    background: var(--light-color);
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-light);
     margin-bottom: 20px;
     overflow: hidden;
     transition: transform 0.3s ease;
@@ -114,8 +137,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #007bff;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--light-color);
     padding: 15px;
     cursor: pointer;
 }
@@ -138,9 +161,9 @@ body {
 }
 
 .reply-btn {
-    background: #fff;
+    background: var(--light-color);
     border: none;
-    color: #007bff;
+    color: var(--primary-color);
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
@@ -177,7 +200,7 @@ body {
 .reply {
     margin-bottom: 15px;
     padding: 10px;
-    background: #fff;
+    background: var(--light-color);
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
@@ -204,7 +227,6 @@ body {
 /* =========================
    Modern Reply Form Styling (Using Input Text)
    ========================= */
-
 .reply-form {
     margin: 20px auto;
     max-width: 600px;
@@ -216,43 +238,56 @@ body {
 .reply-form .reply-input {
     flex: 1;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--border-color);
     border-radius: 15px;
-    background: #fff;
+    background: var(--light-color);
     font-size: 1rem;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #333;
+    color: var(--text-color);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .reply-form .reply-input:focus {
-    border-color: #007bff;
+    border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    box-shadow: var(--shadow-hover);
 }
 
 .send-reply-btn {
     padding: 12px 25px;
     border: none;
     border-radius: 8px;
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-    color: #fff;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--light-color);
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-medium);
+    text-decoration: none !important;
+}
+
+/* Ensure no underline for any state of the send-reply button link */
+a.send-reply-btn,
+a.send-reply-btn:link,
+a.send-reply-btn:visited,
+a.send-reply-btn:hover,
+a.send-reply-btn:active,
+a.send-reply-btn:focus {
+    text-decoration: none !important;
 }
 
 .send-reply-btn:hover {
-    background: linear-gradient(135deg, #0056b3 0%, #003d7a 100%);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
     transform: translateY(-2px);
+    text-decoration: none !important;
 }
+
 /* =========================
    Footer Styling
    ========================= */
 .site-footer {
-    background: #007bff;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--light-color);
     text-align: center;
     padding: 15px 20px;
     margin-top: auto;
