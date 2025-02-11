@@ -1,7 +1,9 @@
 <?php
 session_start();
+
 $_SESSION['username'] = '';
-$_SESSION['thread_path'] = './Database/Threads'; // path to array dir
+$_SESSION['thread_path'] = './Database/Threads'; // path to csv thread dir
+$_SESSION['users_path'] = './Database/Users'; // path to csv users dir
 $_SEESION['file_names'] = ['']; // array of all thread files
 
 require_once 'Components/headerComponent.php';
@@ -26,10 +28,12 @@ require_once 'Components/threadComponent.php';
 </head>
 
 <body>
-    <div class="wrapper">
 
-        <!-- Header -->
-        <?php $header->render(); ?>
+    <!-- Header -->
+    <?php $header->render(); ?>
+
+<div class="wrapper">
+
 
         <div class="forum">
 
