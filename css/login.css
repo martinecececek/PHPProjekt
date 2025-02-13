@@ -1,0 +1,430 @@
+/* =========================
+   CSS Variables
+   ========================= */
+:root {
+    /* Colors */
+    --primary-color: #007bff;
+    --primary-dark: #0056b3;
+    --primary-darker: #003d7a;
+    --background-color: #f5f7fa;
+    --light-color: #fff;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+
+    /* Shadows */
+    --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 12px rgba(0, 123, 255, 0.2);
+
+    /* Fonts */
+    --font-family-base: Arial, sans-serif;
+}
+
+/* Full-page layout with flexbox centering */
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: var(--background-color);
+    padding: 20px;
+}
+
+/* Modern card-style login container */
+.login-container {
+    width: 380px;
+    background: var(--light-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-medium);
+    padding: 25px;
+}
+
+/* Blue header like the forum post title */
+.login-header {
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Login form layout */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Label styling */
+.login-form label {
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+}
+
+/* Input field styling */
+.login-form input {
+    width: 360px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #f9f9f9;
+}
+
+/* Input focus effect */
+.login-form input:focus {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-hover);
+    outline: none;
+    background: var(--light-color);
+}
+
+/* Blue placeholder text */
+.login-form input::placeholder {
+    color: #888;
+    opacity: 0.8;
+}
+
+/* Login button styling */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--light-color);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+/* Hover effect on button */
+.login-button:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
+    transform: translateY(-2px);
+}
+
+/* Register link */
+.login-footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.login-footer a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.login-footer a:hover {
+    color: var(--primary-darker);
+    text-decoration: underline;
+}
+
+/* =========================
+   Reset and Base Styles
+   ========================= */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--background-color);
+    font-family: var(--font-family-base);
+    color: var(--text-color);
+    text-decoration: none !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title-a {
+    color: var(--light-color);
+}
+
+/* Flex layout on body for sticky footer */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Wrapper for header and content */
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   Header Styling
+   ========================= */
+.site-header {
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: 15px 20px;
+}
+
+.header-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    color: var(--light-color);
+    text-decoration: none;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.login-btn {
+    background: var(--light-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #e0e0e0;
+}
+
+/* =========================
+   Create New Thread Button Styling
+   ========================= */
+.create-thread-link {
+    display: inline-block;
+    background: linear-gradient(45deg, #ffffff, #e6f2ff);
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1em;
+    border: 1px solid var(--primary-color);
+    transition: background 0.3s ease, color 0.3s ease;
+    margin-left: 10px;
+    box-shadow: var(--shadow-light);
+}
+
+.create-thread-link:hover {
+    background: var(--primary-color);
+    color: var(--light-color);
+}
+
+/* =========================
+   Forum & Thread Styling
+   ========================= */
+.forum {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.thread {
+    background: var(--light-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.thread:hover {
+    transform: translateY(-2px);
+}
+
+/* Hidden checkbox used for toggling replies */
+.toggle-thread {
+    display: none;
+}
+
+.thread-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: 15px;
+    cursor: pointer;
+}
+
+.thread-header {
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.thread-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.thread-meta {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.reply-btn {
+    background: var(--light-color);
+    border: none;
+    color: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.reply-btn:hover {
+    background: #e0e0e0;
+}
+
+.thread-body {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.thread-body p {
+    margin: 0;
+}
+
+.thread-replies {
+    max-height: 0;
+    overflow: hidden;
+    background: #f9f9f9;
+    border-top: 1px solid #ddd;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    padding: 0 15px;
+}
+
+.toggle-thread:checked ~ .thread-replies {
+    max-height: 500px; /* adjust if needed */
+    padding: 15px;
+}
+
+.reply {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: var(--light-color);
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.reply:last-child {
+    margin-bottom: 0;
+}
+
+.reply-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.reply-author {
+    font-weight: bold;
+}
+
+.reply-time {
+    font-size: 0.8em;
+    color: #999;
+}
+
+/* =========================
+   Modern Reply Form Styling (Using Input Text)
+   ========================= */
+.reply-form {
+    margin: 20px auto;
+    max-width: 600px;
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+}
+
+.reply-form .reply-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    background: var(--light-color);
+    font-size: 1rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--text-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reply-form .reply-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: var(--shadow-hover);
+}
+
+.send-reply-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--primary-dark) 100%
+    );
+    color: var(--light-color);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: var(--shadow-medium);
+    text-decoration: none !important;
+}
+
+/* Ensure no underline for any state of the send-reply button link */
+a.send-reply-btn,
+a.send-reply-btn:link,
+a.send-reply-btn:visited,
+a.send-reply-btn:hover,
+a.send-reply-btn:active,
+a.send-reply-btn:focus {
+    text-decoration: none !important;
+}
+
+.send-reply-btn:hover {
+    background: linear-gradient(
+        135deg,
+        var(--primary-dark) 0%,
+        var(--primary-darker) 100%
+    );
+    transform: translateY(-2px);
+    text-decoration: none !important;
+}
+
+/* =========================
+   Footer Styling
+   ========================= */
+.site-footer {
+    background: var(--primary-color);
+    color: var(--light-color);
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 800px;
+    margin: 0 auto;
+}

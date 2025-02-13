@@ -1,0 +1,5 @@
+{
+    "prettier.mode": "Enabled",
+    "prettier.applicableFilesGlob": "{**/*,*}.{js,ts,jsx,tsx,php}",
+    "editor.guides": []
+}

@@ -22,18 +22,20 @@ class HeaderCopoment
     public function render()
     {
         ?>
-            <header class="site-header">
-                <div class="header-container">
-                    <h1 class="site-title"><a href="index.php" class="title-a"><?= htmlspecialchars($this->title) ?></a></h1>
-                    <?php if (empty($this->username)): ?>
-                        <a href="login.php" class="login-btn">Login</a>
-                    <?php else: ?>
-                        <button class="login-btn"><?= htmlspecialchars($this->username) ?></button>
-                    <?php endif; ?>
-                </div>
-            </header>
+        <header class="site-header">
+            <div class="header-container">
+                <h1 class="site-title"><a href="index.php" class="title-a"><?= htmlspecialchars($this->title) ?></a>
+                </h1>
+                <?php if (empty($this->username)): ?>
+                    <a href="login.php" class="login-btn">Login</a>
+                <?php else: ?>
+                    <button class="login-btn"><?= htmlspecialchars($this->username) ?></button>
+                <?php endif; ?>
+            </div>
+        </header>
 
-        <?php
+        <? php0
     }
 }
+
 ?>

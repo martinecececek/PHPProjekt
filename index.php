@@ -3,7 +3,7 @@ session_start();
 
 $_SESSION['username'] = '';
 $_SESSION['thread_path'] = './Database/Threads'; // path to csv thread dir
-$_SESSION['users_path'] = './Database/Users'; // path to csv users dir
+$_SESSION['users_path'] = './Database/Users/users.csv'; // path to csv users dir
 $_SEESION['file_names'] = ['']; // array of all thread files
 
 require_once 'Components/headerComponent.php';
@@ -19,50 +19,47 @@ require_once 'Components/threadComponent.php';
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport">
     <title>Discussion Forum with Sticky Footer</title>
-    <link rel="stylesheet" href="index.css" />
-    
-
+    <link rel="stylesheet" href="./css/index.css"/>
 </head>
-
 <body>
 
-    <!-- Header -->
-    <?php $header->render(); ?>
+<!-- Header -->
+<?php $header->render(); ?>
 
 <div class="wrapper">
 
 
-        <div class="forum">
+    <div class="forum">
 
-            <!-- Get all filenames -->
-            <?php
-                $threadFiles = glob($_SESSION ['thread_path'] . '/*.csv');
+        <!-- Get all filenames -->
+        <?php
+        $threadFiles = glob($_SESSION ['thread_path'] . '/*.csv');
 
-                if ($threadFiles === false || count($threadFiles) === 0) {
-                    echo "No threads found.";
-                } else {
-                    // Loop through each CSV file.
-                    foreach ($threadFiles as $filePath) {
-                        // Extract just the filename (without the directory path).
-                        $fileName = basename($filePath);
+        if ($threadFiles === false || count($threadFiles) === 0) {
+            echo "No threads found.";
+        } else {
+            // Loop through each CSV file.
+            foreach ($threadFiles as $filePath) {
+                // Extract just the filename (without the directory path).
+                $fileName = basename($filePath);
 
-                        // Create an instance of ThreadComponent with the filename.
-                        $thread = new ThreadComponent($fileName);
+                // Create an instance of ThreadComponent with the filename.
+                $thread = new ThreadComponent($fileName);
 
-                        // Render the thread (which will internally parse the CSV file).
-                        $thread->render();
-                    }
-                }
-            ?>
+                // Render the thread (which will internally parse the CSV file).
+                $thread->render();
+            }
+        }
+        ?>
 
-        </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <?php $footer->render(); ?>
+<!-- Footer -->
+<?php $footer->render(); ?>
 
 </body>
 </html>

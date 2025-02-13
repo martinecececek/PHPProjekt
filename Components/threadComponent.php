@@ -1,4 +1,5 @@
 <?php
+
 class ThreadComponent
 {
     private $file_name = '';
@@ -53,9 +54,9 @@ class ThreadComponent
 
         $thread = [
             'username' => $threadParts[0],
-            'title'    => $threadParts[1],
+            'title' => $threadParts[1],
             'datetime' => $threadParts[2],
-            'content'  => $threadParts[3],
+            'content' => $threadParts[3],
         ];
 
         // Parse each reply (each line after the separator).
@@ -69,12 +70,12 @@ class ThreadComponent
             $replies[] = [
                 'username' => $parts[0],
                 'datetime' => $parts[1],
-                'content'  => $parts[2],
+                'content' => $parts[2],
             ];
         }
 
         return [
-            'thread'  => $thread,
+            'thread' => $thread,
             'replies' => $replies
         ];
     }
@@ -90,14 +91,14 @@ class ThreadComponent
             return;
         }
 
-        $thread  = $data['thread'];
+        $thread = $data['thread'];
         $replies = $data['replies'];
 
         // Create a unique id based on the file name for toggling thread display.
         $unique_id = htmlspecialchars($this->file_name);
         ?>
         <div class="thread">
-            <input type="checkbox" id="thread-<?php echo $unique_id; ?>" class="toggle-thread" />
+            <input type="checkbox" id="thread-<?php echo $unique_id; ?>" class="toggle-thread"/>
             <div class="thread-header-container">
                 <label for="thread-<?php echo $unique_id; ?>" class="thread-header">
                     <div class="thread-info">
@@ -131,7 +132,7 @@ class ThreadComponent
 
 
                 <!-- Reply Form: Visible only when thread is expanded -->
-                <form class="reply-form" action="send_reply.php" method="post">
+                <form class="reply-form" action="reply_handeler.php" method="POST">
                     <input type="hidden" name="thread_file" value="<?php echo htmlspecialchars($this->file_name); ?>">
                     <input type="text" name="reply" placeholder="Type your reply here..." class="reply-input" required>
 
@@ -149,4 +150,5 @@ class ThreadComponent
         <?php
     }
 }
+
 ?>
