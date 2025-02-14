@@ -105,7 +105,7 @@ class ThreadComponent
                         <h3><?php echo htmlspecialchars($thread['title']); ?></h3>
                         <span class="thread-meta">
                             Posted by <?php echo htmlspecialchars($thread['username']); ?>,
-                            <?php echo htmlspecialchars($thread['datetime']); ?>
+                            <?php echo htmlspecialchars($this->Convert_unix($thread['datetime'])); ?>
                         </span>
                     </div>
                 </label>
@@ -119,7 +119,8 @@ class ThreadComponent
                         <div class="reply">
                             <div class="reply-header">
                                 <span class="reply-author"><?php echo htmlspecialchars($reply['username']); ?></span>
-                                <span class="reply-time"><?php echo htmlspecialchars($reply['datetime']); ?></span>
+                                <span
+                                    class="reply-time"><?php echo htmlspecialchars($this->Convert_unix($reply['datetime'])); ?></span>
                             </div>
                             <div class="reply-content">
                                 <p><?php echo htmlspecialchars($reply['content']); ?></p>
@@ -149,6 +150,38 @@ class ThreadComponent
         </div>
         <?php
     }
+
+
+    public function Convert_unix($post_created)
+    {
+        // If $post_created is not a valid Unix timestamp, strtotime() can help:
+        if (!is_numeric($post_created)) {
+            $post_created = strtotime($post_created);
+        }
+
+        $posted_ago = time() - intval($post_created);
+
+        // Debug output
+        // echo "posted_ago: $posted_ago seconds<br>";
+
+        switch (true) {
+            case ($posted_ago >= 86400):
+                $days = floor($posted_ago / 86400);
+                return $days . " day" . ($days > 1 ? "s" : "") . " ago";
+            case ($posted_ago >= 3600):
+                $hours = floor($posted_ago / 3600);
+                return $hours . " hour" . ($hours > 1 ? "s" : "") . " ago";
+            case ($posted_ago >= 60):
+                $minutes = floor($posted_ago / 60);
+                return $minutes . " minute" . ($minutes > 1 ? "s" : "") . " ago";
+            case ($posted_ago < 60):
+                return "less than a minute ago";
+            default:
+                return "ERROR: data not found";
+        }
+    }
+
 }
+
 
 ?>

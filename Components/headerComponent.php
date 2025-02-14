@@ -34,7 +34,7 @@ class HeaderCopoment
             </div>
         </header>
 
-        <? php0
+        <?php
     }
 }
 
