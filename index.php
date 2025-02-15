@@ -1,16 +1,14 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-
-    $_SESSION['username'] = '';
-    $_SESSION['thread_path'] = './Database/Threads'; // path to csv thread dir
-    $_SESSION['users_path'] = './Database/Users/users.csv'; // path to csv users dir
-    $_SESSION['file_names'] = ['']; // array of all thread files
-    $_SESSION['filter'] = '';
 }
 
+$_SESSION['thread_path'] = './Database/Threads'; // path to csv thread dir
+$_SESSION['users_path'] = './Database/Users/users.csv'; // path to csv users dir
+$_SESSION['file_names'] = ['']; // array of all thread files
+$_SESSION['filter'] = '';
 
-include 'Components/headerComponent.php';
+require_once 'Components/headerComponent.php';
 $header = new HeaderCopoment("Discusion forum");
 
 require_once 'Components/footerComponent.php';
@@ -57,7 +55,6 @@ require_once 'Components/threadComponent.php';
     <div class="forum">
         <!-- Get all filenames -->
         <?php
-        echo $_SESSION['username'];
 
         // Update session variable if a filter is submitted
         if (isset($_POST['filter'])) {
