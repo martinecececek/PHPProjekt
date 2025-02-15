@@ -1,49 +1,48 @@
 <?php
-
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve and trim form data
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']); // Not used in this simple example, but available for further checks
+    // Get the user input from the form
+    $username = isset($_POST['usrnm']) ? trim($_POST['usrnm']) : '';
+    $password = isset($_POST['pass']) ? trim($_POST['pass']) : '';
 
-    // Flag to indicate if the username was found
+    $csvFile = './Database/Users/users.csv';
+
+    // Check if the CSV file exists
+    if (!file_exists($csvFile)) {
+        die("CSV file not found at: " . htmlspecialchars($csvFile));
+    }
+
+    // Flag to indicate a successful match
     $userFound = false;
 
-    // Path to your CSV file (adjust the path if necessary)
-    $csvFile = $_SESSION['users_path'];
-
-    // Check if file exists
-    if (file_exists($csvFile)) {
-        if (($handle = fopen($csvFile, "r")) !== false) {
-            // Loop through each row of the CSV file
-            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-                // Assuming the CSV's first column is the username.
-                if (isset($data[0]) && $data[0] === $username) {
-                    $userFound = true;
-                    // You can add password verification here if needed.
-                    break; // Stop reading once we found a match.
-                }
+    // Open the CSV file for reading
+    if (($handle = fopen($csvFile, 'r')) !== false) {
+        // Loop through each row in the CSV
+        while (($data = fgetcsv($handle, 1000, "|")) !== false) {
+            // Assuming CSV format: username, password
+            if (isset($data[0], $data[1]) && $data[0] === $username && $data[1] === $password) {
+                $userFound = true;
+                break;
             }
-            fclose($handle);
-        } else {
-            // Handle error opening the CSV file
-            die("Unable to open user data file.");
         }
+        fclose($handle);
     } else {
-        // Handle missing CSV file error
-        die("User data file not found.");
+        die("Unable to open CSV file.");
     }
 
-    // If the username exists in the CSV, redirect to index.php
     if ($userFound) {
+        // Store the username in the session and redirect
         $_SESSION['username'] = $username;
         header("Location: index.php");
-        exit;
+        exit(); // Terminate script after redirect
     } else {
-        // Prepare an error message to show on the form
-        $errorMessage = "Invalid username. Please try again.";
+        // If credentials do not match, show an error message
+        echo "Invalid username or password.";
     }
 }
+?>
+
+<?php
 
 // Include components after processing POST (if needed)
 require_once 'Components/headerComponent.php';
@@ -78,10 +77,10 @@ $footer = new FooterComponent();
         ?>
         <form action="login.php" method="POST" class="login-form">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <input type="text" id="username" name="usrnm" placeholder="Enter your username" required>
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <input type="password" id="password" name="pass" placeholder="Enter your password" required>
 
             <button type="submit" class="login-button">Login</button>
         </form>

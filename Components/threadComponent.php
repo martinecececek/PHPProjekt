@@ -97,7 +97,7 @@ class ThreadComponent
         // Create a unique id based on the file name for toggling thread display.
         $unique_id = htmlspecialchars($this->file_name);
         ?>
-        <div class="thread">
+        <div class="thread" style="width: 600px">
             <input type="checkbox" id="thread-<?php echo $unique_id; ?>" class="toggle-thread"/>
             <div class="thread-header-container">
                 <label for="thread-<?php echo $unique_id; ?>" class="thread-header">

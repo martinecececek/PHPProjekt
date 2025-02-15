@@ -16,6 +16,7 @@ class HeaderCopoment
         $this->title = $title;
 
         $this->username = isset($_SESSION['username']) ? $_SESSION['username'] : "";
+
     }
 
 
