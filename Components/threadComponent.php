@@ -76,7 +76,7 @@ class ThreadComponent
 
         return [
             'thread' => $thread,
-            'replies' => $replies
+            'replies' => array_reverse($replies)
         ];
     }
 

@@ -24,7 +24,8 @@ class HeaderCopoment
         ?>
         <header class="site-header">
             <div class="header-container">
-                <h1 class="site-title"><a href="index.php" class="title-a"><?= htmlspecialchars($this->title) ?></a>
+                <h1 class="site-title"><a href="index.php" class="title-a"
+                                          style="font-family: Roboto, sans-serif"><?= htmlspecialchars($this->title) ?></a>
                 </h1>
                 <?php if (empty($this->username)): ?>
                     <a href="login.php" class="login-btn">Login</a>

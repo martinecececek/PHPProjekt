@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
 /* =========================
    CSS Variables
    ========================= */
@@ -17,7 +20,9 @@
     --shadow-hover: 0 4px 12px rgba(0, 123, 255, 0.2);
 
     /* Fonts */
-    --font-family-base: Arial, sans-serif;
+    --font-family-base: Calibri, sans-serif; /* General base font */
+    --forum-font: 'Roboto', sans-serif; /* Forum area font */
+    --thread-font: 'Merriweather', serif; /* Thread text font */
 }
 
 /* =========================
@@ -173,7 +178,7 @@ a {
 }
 
 .header-container {
-    max-width: 800px;
+    max-width: 600px; /* Updated from 800px */
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -227,13 +232,43 @@ a {
 /* =========================
    Forum & Thread Styling
    ========================= */
+
+/* Discussion Forum Area */
 .forum {
-    max-width: 800px;
+    max-width: 600px; /* Updated from 800px */
     margin: 20px auto;
     padding: 0 20px;
     flex: 1;
+    font-family: var(--forum-font);
 }
 
+/* Theme Filter Buttons */
+.theme-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.theme-btn {
+    background: var(--light-color);
+    border: none;
+    color: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    font-size: 1em;
+}
+
+.theme-btn:hover,
+.theme-btn.active {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+/* Thread Container */
 .thread {
     background: var(--light-color);
     border-radius: 8px;
@@ -241,6 +276,7 @@ a {
     margin-bottom: 20px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    font-family: var(--thread-font);
 }
 
 .thread:hover {
@@ -322,6 +358,7 @@ a {
     background: var(--light-color);
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    font-family: var(--thread-font);
 }
 
 .reply:last-child {
@@ -332,6 +369,7 @@ a {
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
+    font-family: var(--thread-font);
 }
 
 .reply-author {
@@ -361,7 +399,7 @@ a {
     border-radius: 15px;
     background: var(--light-color);
     font-size: 1rem;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: var(--font-family-base);
     color: var(--text-color);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -412,6 +450,6 @@ a.send-reply-btn:focus {
 }
 
 .footer-container {
-    max-width: 800px;
+    max-width: 600px; /* Updated from 800px */
     margin: 0 auto;
 }
