@@ -62,7 +62,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 110vh;
     background: var(--background-color);
     padding: 20px;
 }

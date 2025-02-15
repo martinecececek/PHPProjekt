@@ -55,27 +55,53 @@ require_once 'Components/threadComponent.php';
         <!-- Get all filenames -->
         <?php
 
-        $filter = '';
-        switch ($_SESSION['filter']) {
-            case 'te':
-                $filter = '/*_te.csv';
-                break;
-            case 'en':
-                $filter = '/*_en.csv';
-                break;
-            case 'tr':
-                $filter = '/*_tr.csv';
-                break;
-            case 'ga':
-                $filter = '/*_ga.csv';
-                break;
-            default:
-                $filter = '/*.csv';
-                break;
-        
+        // Update session variable if a filter is submitted
+        if (isset($_POST['filter'])) {
+            // Map form value to a short code for filtering
+            switch ($_POST['filter']) {
+                case 'technology':
+                    $_SESSION['filter'] = 'te';
+                    break;
+                case 'entertainment':
+                    $_SESSION['filter'] = 'en';
+                    break;
+                case 'travel':
+                    $_SESSION['filter'] = 'tr';
+                    break;
+                case 'gardening':
+                    $_SESSION['filter'] = 'ga';
+                    break;
+                case 'all':
+                default:
+                    $_SESSION['filter'] = 'all';
+                    break;
+            }
         }
 
-        $threadFiles = glob($_SESSION['thread_path'] . $filter);
+        // Set a default filter if not already set
+        if (!isset($_SESSION['filter'])) {
+            $_SESSION['filter'] = 'all';
+        }
+
+        switch ($_SESSION['filter']) {
+            case 'te':
+                $pattern = '/*_te.csv';
+                break;
+            case 'en':
+                $pattern = '/*_en.csv';
+                break;
+            case 'tr':
+                $pattern = '/*_tr.csv';
+                break;
+            case 'ga':
+                $pattern = '/*_ga.csv';
+                break;
+            default:
+                $pattern = '/*.csv';
+                break;
+        }
+
+        $threadFiles = glob($_SESSION['thread_path'] . $pattern);
 
         if ($threadFiles === false || count($threadFiles) === 0) {
             echo "No threads found.";
