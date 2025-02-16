@@ -13,6 +13,34 @@ require_once 'Components/threadComponent.php';
 
 <?php
 
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $time = time();
+    $username = isset($_SESSION['username']) ? trim($_SESSION['username']) : '';
+    $title = isset($_POST['threadTitle']) ? trim($_POST['threadTitle']) : '';
+    $content = isset($_POST['threadContent']) ? trim($_POST['threadContent']) : '';
+    $theme = isset($_POST['threadCategory']) ? trim($_POST['threadCategory']) : '';
+
+    // Build the data array
+    $data = [
+        'username' => $username,
+        'title' => $title,
+        'time' => $time,
+        'content' => $content,
+    ];
+
+    // Create a string from the data array with " | " as the delimiter
+    $line = implode(" | ", $data);
+
+    // Define the file path using a session variable and a combination of time and theme
+    $file_path = './Database/Threads' . '/' . $time . $theme . '.csv';
+
+    // Create (or overwrite) the file with the content
+    $result = file_put_contents($file_path, $line);
+
+}
 
 ?>
 
@@ -32,7 +60,7 @@ require_once 'Components/threadComponent.php';
 <!-- Thread Creation Form -->
 <div class="login-container">
     <div class="login-header">Create New Thread</div>
-    <form class="login-form">
+    <form class="login-form" method="POST" action="new_thread.php">
         <label for="threadTitle">Thread Title</label>
         <input
             type="text"
@@ -45,15 +73,16 @@ require_once 'Components/threadComponent.php';
         <label for="threadCategory">Category</label>
         <select id="threadCategory" name="threadCategory" required>
             <option value="">Select Category</option>
-            <option value="general">General</option>
-            <option value="announcements">Announcements</option>
-            <option value="feedback">Feedback</option>
+            <option value="_te">💻 Technology</option>
+            <option value="_en">🎬 Entertainment</option>
+            <option value="_tr">✈️ Travel</option>
+            <option value="_ga">🌱 Gardening</option>
         </select>
 
         <label for="threadContent">Content</label>
         <textarea
             id="autoResize"
-            name="autoResize"
+            name="threadContent"
             style="min-height:50px; resize: none; overflow: hidden;"
         ></textarea>
 
