@@ -25,7 +25,7 @@ require_once 'Components/threadComponent.php';
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discussion Forum with Sticky Footer</title>
+    <title>Martineckovo forum</title>
     <link rel="stylesheet" href="./css/index.css?v=2"/>
 </head>
 <body>
@@ -128,79 +128,71 @@ require_once 'Components/threadComponent.php';
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('JavaScript loaded');
-        // Select all thread header containers
-        const threadHeaders = document.querySelectorAll('.thread-header-container');
+        console.log("Main script loaded");
 
-        threadHeaders.forEach(function (header) {
+        // 1. Thread open/close toggle:
+        document.querySelectorAll('.thread-header-container').forEach(function (header) {
             header.addEventListener('click', function (e) {
-                console.log('Thread header clicked');
-                // Prevent default behavior in case a label click toggles a hidden checkbox
-                e.preventDefault();
-
-                // Locate the parent .thread and its .thread-replies
+                // If the click is on the see-more button, don't toggle the thread
+                if (e.target.classList.contains('see-more')) {
+                    return;
+                }
                 const threadContainer = header.closest('.thread');
                 const repliesContainer = threadContainer.querySelector('.thread-replies');
-
-                if (repliesContainer) {
-                    repliesContainer.classList.toggle('expanded');
-                    console.log('Toggled replies. Expanded:', repliesContainer.classList.contains('expanded'));
-                } else {
-                    console.log('No replies container found!');
-                }
+                repliesContainer.classList.toggle('expanded');
+                console.log("Toggled thread open/close");
             });
         });
-    });
-</script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Process each thread's replies
-        const threadRepliesContainers = document.querySelectorAll('.thread-replies');
+        // 2. See More Replies (limit to 4):
+        document.querySelectorAll('.thread-replies').forEach(function (container) {
+            // If we've already added a see-more button, skip this container
+            if (container.dataset.seeMoreAdded === 'true') {
+                console.log("Skipping container; see-more button already added:", container);
+                return;
+            }
 
-        threadRepliesContainers.forEach(function (container) {
-            // Get all individual replies within the container
+            // Mark as processed
+            container.dataset.seeMoreAdded = 'true';
+
             const replies = container.querySelectorAll('.reply');
-
-            // Only proceed if there are more than 4 replies
             if (replies.length > 4) {
-                // Hide all replies after the fourth one (index 0-3 are the first four)
+                // Hide replies from index 4 onward
                 for (let i = 4; i < replies.length; i++) {
                     replies[i].classList.add('hidden');
                 }
 
-                // Create a "See more" button
+                // Create the "See more replies" button
                 const seeMoreBtn = document.createElement('button');
-                seeMoreBtn.textContent = "See more replies";
-                seeMoreBtn.classList.add('see-more-btn');
+                seeMoreBtn.classList.add('send-reply-btn', 'see-more');
+                seeMoreBtn.textContent = 'See more replies';
 
-                // Append the button after the replies container
-                container.appendChild(seeMoreBtn);
+                // Insert the button immediately after the fourth reply (index 3)
+                replies[3].insertAdjacentElement('afterend', seeMoreBtn);
+                console.log("Inserted see-more button after reply #4");
 
-                // Add click event to toggle the hidden replies
-                seeMoreBtn.addEventListener('click', function () {
-                    // Get currently hidden replies within this container
-                    const hiddenReplies = container.querySelectorAll('.reply.hidden');
-                    if (hiddenReplies.length > 0) {
-                        // If there are hidden replies, reveal all
-                        hiddenReplies.forEach(function (reply) {
+                // Toggle the extra replies on button click
+                seeMoreBtn.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Don't toggle the entire thread
+                    if (seeMoreBtn.textContent === 'See more replies') {
+                        container.querySelectorAll('.reply.hidden').forEach(function (reply) {
                             reply.classList.remove('hidden');
                         });
-                        seeMoreBtn.textContent = "Show less replies";
+                        seeMoreBtn.textContent = 'Show less replies';
+                        console.log("Showing hidden replies");
                     } else {
-                        // Otherwise, hide all replies after the fourth again
-                        replies.forEach(function (reply, index) {
-                            if (index >= 4) {
-                                reply.classList.add('hidden');
-                            }
-                        });
-                        seeMoreBtn.textContent = "See more replies";
+                        for (let i = 4; i < replies.length; i++) {
+                            replies[i].classList.add('hidden');
+                        }
+                        seeMoreBtn.textContent = 'See more replies';
+                        console.log("Re-hiding extra replies");
                     }
                 });
             }
         });
     });
 </script>
+
 
 <!-- Footer -->
 <?php $footer->render(); ?>

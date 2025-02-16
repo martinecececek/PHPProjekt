@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Loop through each row in the CSV
         while (($data = fgetcsv($handle, 1000, "|")) !== false) {
             // Assuming CSV format: username, password
-            if (isset($data[0], $data[1]) && $data[0] === $username && $data[1] === $password) {
+            if (isset($data[0], $data[1]) && trim($data[0]) === $username && trim($data[1]) === $password) {
                 $userFound = true;
                 break;
             }

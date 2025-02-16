@@ -343,7 +343,7 @@ a {
 }
 
 .thread-replies.expanded {
-    max-height: 1000px;
+    max-height: none; /* changed from a fixed value so all replies can show */
     padding: 15px;
 }
 
@@ -377,6 +377,10 @@ a {
 .reply-time {
     font-size: 0.8em;
     color: #999;
+}
+
+.reply.hidden {
+    display: none;
 }
 
 /* =========================
@@ -421,6 +425,12 @@ a {
     text-decoration: none !important;
 }
 
+/* Use the same submit button style for the See More button */
+.send-reply-btn.see-more {
+    margin: 10px auto; /* auto left/right centers the button */
+    display: block;
+}
+
 a.send-reply-btn,
 a.send-reply-btn:link,
 a.send-reply-btn:visited,
@@ -433,29 +443,6 @@ a.send-reply-btn:focus {
 .send-reply-btn:hover {
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
     transform: translateY(-2px);
-}
-
-/* =========================
-   See More Replies Button and Hidden Replies
-   ========================= */
-.reply.hidden {
-    display: none;
-}
-
-.see-more-btn {
-    background: var(--primary-color);
-    color: var(--light-color);
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin: 10px 15px;
-    font-family: var(--font-family-base);
-}
-
-.see-more-btn:hover {
-    background: var(--primary-dark);
 }
 
 /* =========================
