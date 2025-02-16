@@ -94,13 +94,10 @@ class ThreadComponent
         $thread = $data['thread'];
         $replies = $data['replies'];
 
-        // Create a unique id based on the file name for toggling thread display.
-        $unique_id = htmlspecialchars($this->file_name);
         ?>
         <div class="thread" style="width: 600px">
-            <input type="checkbox" id="thread-<?php echo $unique_id; ?>" class="toggle-thread"/>
             <div class="thread-header-container">
-                <label for="thread-<?php echo $unique_id; ?>" class="thread-header">
+                <label for="thread-<?php echo htmlspecialchars($this->file_name); ?>" class="thread-header">
                     <div class="thread-info">
                         <h3><?php echo htmlspecialchars($thread['title']); ?></h3>
                         <span class="thread-meta">
@@ -131,26 +128,22 @@ class ThreadComponent
                     <p>No replies yet.</p>
                 <?php endif; ?>
 
-
                 <!-- Reply Form: Visible only when thread is expanded -->
-                <form class="reply-form" action="reply_handeler.php" method="POST">
+                <form class="reply-form" action="./Functions/reply_handeler.php" method="POST">
                     <input type="hidden" name="thread_file" value="<?php echo htmlspecialchars($this->file_name); ?>">
                     <input type="text" name="reply" placeholder="Type your reply here..." class="reply-input" required>
-
                     <?php if (empty($_SESSION['username'])): ?>
                         <!-- User is not logged in: show a link that directs to the login page -->
                         <a href="login.php" class="send-reply-btn">Reply</a>
                     <?php else: ?>
                         <!-- User is logged in: show the standard reply button -->
-                        <button type="button" class="send-reply-btn">Reply</button>
+                        <button type="submit" class="send-reply-btn">Reply</button>
                     <?php endif; ?>
-
                 </form>
             </div>
         </div>
         <?php
     }
-
 
     public function Convert_unix($post_created)
     {
@@ -160,9 +153,6 @@ class ThreadComponent
         }
 
         $posted_ago = time() - intval($post_created);
-
-        // Debug output
-        // echo "posted_ago: $posted_ago seconds<br>";
 
         switch (true) {
             case ($posted_ago >= 86400):
@@ -180,8 +170,6 @@ class ThreadComponent
                 return "ERROR: data not found";
         }
     }
-
 }
-
 
 ?>

@@ -20,9 +20,9 @@
     --shadow-hover: 0 4px 12px rgba(0, 123, 255, 0.2);
 
     /* Fonts */
-    --font-family-base: Calibri, sans-serif; /* General base font */
-    --forum-font: 'Roboto', sans-serif; /* Forum area font */
-    --thread-font: 'Merriweather', serif; /* Thread text font */
+    --font-family-base: Calibri, sans-serif;
+    --forum-font: 'Roboto', sans-serif;
+    --thread-font: 'Merriweather', serif;
 }
 
 /* =========================
@@ -57,7 +57,6 @@ a {
 /* =========================
    Layout Wrappers
    ========================= */
-/* For full-page centering (e.g. login page) */
 .wrapper-center {
     display: flex;
     align-items: center;
@@ -67,7 +66,6 @@ a {
     padding: 20px;
 }
 
-/* For page header + content layouts */
 .wrapper {
     flex: 1;
     display: flex;
@@ -178,7 +176,7 @@ a {
 }
 
 .header-container {
-    max-width: 600px; /* Updated from 800px */
+    max-width: 600px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -192,7 +190,6 @@ a {
     margin: 0;
 }
 
-/* Button in header */
 .login-btn {
     background: var(--light-color);
     color: var(--primary-color);
@@ -232,17 +229,14 @@ a {
 /* =========================
    Forum & Thread Styling
    ========================= */
-
-/* Discussion Forum Area */
 .forum {
-    max-width: 600px; /* Updated from 800px */
+    max-width: 600px;
     margin: 20px auto;
     padding: 0 20px;
     flex: 1;
     font-family: var(--forum-font);
 }
 
-/* Theme Filter Buttons */
 .theme-filters {
     display: flex;
     justify-content: center;
@@ -338,6 +332,7 @@ a {
     margin: 0;
 }
 
+/* Thread Replies Toggle - updated for JS */
 .thread-replies {
     max-height: 0;
     overflow: hidden;
@@ -347,11 +342,14 @@ a {
     padding: 0 15px;
 }
 
-.toggle-thread:checked ~ .thread-replies {
-    max-height: 500px; /* adjust as needed */
+.thread-replies.expanded {
+    max-height: 1000px;
     padding: 15px;
 }
 
+/* =========================
+   Reply Styling
+   ========================= */
 .reply {
     margin-bottom: 15px;
     padding: 10px;
@@ -423,7 +421,6 @@ a {
     text-decoration: none !important;
 }
 
-/* Remove underline for all states of send-reply button links */
 a.send-reply-btn,
 a.send-reply-btn:link,
 a.send-reply-btn:visited,
@@ -439,6 +436,29 @@ a.send-reply-btn:focus {
 }
 
 /* =========================
+   See More Replies Button and Hidden Replies
+   ========================= */
+.reply.hidden {
+    display: none;
+}
+
+.see-more-btn {
+    background: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin: 10px 15px;
+    font-family: var(--font-family-base);
+}
+
+.see-more-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================
    Footer Styling
    ========================= */
 .site-footer {
@@ -450,6 +470,6 @@ a.send-reply-btn:focus {
 }
 
 .footer-container {
-    max-width: 600px; /* Updated from 800px */
+    max-width: 600px;
     margin: 0 auto;
 }

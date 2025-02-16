@@ -1,8 +1,10 @@
 <?php
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+$_SESSION['username'];
 $_SESSION['thread_path'] = './Database/Threads'; // path to csv thread dir
 $_SESSION['users_path'] = './Database/Users/users.csv'; // path to csv users dir
 $_SESSION['file_names'] = ['']; // array of all thread files
@@ -120,8 +122,85 @@ require_once 'Components/threadComponent.php';
             }
         }
         ?>
+
+
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('JavaScript loaded');
+        // Select all thread header containers
+        const threadHeaders = document.querySelectorAll('.thread-header-container');
+
+        threadHeaders.forEach(function (header) {
+            header.addEventListener('click', function (e) {
+                console.log('Thread header clicked');
+                // Prevent default behavior in case a label click toggles a hidden checkbox
+                e.preventDefault();
+
+                // Locate the parent .thread and its .thread-replies
+                const threadContainer = header.closest('.thread');
+                const repliesContainer = threadContainer.querySelector('.thread-replies');
+
+                if (repliesContainer) {
+                    repliesContainer.classList.toggle('expanded');
+                    console.log('Toggled replies. Expanded:', repliesContainer.classList.contains('expanded'));
+                } else {
+                    console.log('No replies container found!');
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Process each thread's replies
+        const threadRepliesContainers = document.querySelectorAll('.thread-replies');
+
+        threadRepliesContainers.forEach(function (container) {
+            // Get all individual replies within the container
+            const replies = container.querySelectorAll('.reply');
+
+            // Only proceed if there are more than 4 replies
+            if (replies.length > 4) {
+                // Hide all replies after the fourth one (index 0-3 are the first four)
+                for (let i = 4; i < replies.length; i++) {
+                    replies[i].classList.add('hidden');
+                }
+
+                // Create a "See more" button
+                const seeMoreBtn = document.createElement('button');
+                seeMoreBtn.textContent = "See more replies";
+                seeMoreBtn.classList.add('see-more-btn');
+
+                // Append the button after the replies container
+                container.appendChild(seeMoreBtn);
+
+                // Add click event to toggle the hidden replies
+                seeMoreBtn.addEventListener('click', function () {
+                    // Get currently hidden replies within this container
+                    const hiddenReplies = container.querySelectorAll('.reply.hidden');
+                    if (hiddenReplies.length > 0) {
+                        // If there are hidden replies, reveal all
+                        hiddenReplies.forEach(function (reply) {
+                            reply.classList.remove('hidden');
+                        });
+                        seeMoreBtn.textContent = "Show less replies";
+                    } else {
+                        // Otherwise, hide all replies after the fourth again
+                        replies.forEach(function (reply, index) {
+                            if (index >= 4) {
+                                reply.classList.add('hidden');
+                            }
+                        });
+                        seeMoreBtn.textContent = "See more replies";
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 <!-- Footer -->
 <?php $footer->render(); ?>

@@ -32,14 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     // Create a string from the data array with " | " as the delimiter
-    $line = implode(" | ", $data);
+    $line = implode(" | ", $data) . PHP_EOL;
 
     // Define the file path using a session variable and a combination of time and theme
     $file_path = './Database/Threads' . '/' . $time . $theme . '.csv';
 
     // Create (or overwrite) the file with the content
-    $result = file_put_contents($file_path, $line);
+    file_put_contents($file_path, $line);
 
+    $separator_line = "-------" . PHP_EOL;
+    file_put_contents($file_path, $separator_line, FILE_APPEND);
+
+    header("Location: index.php");
 }
 
 ?>
