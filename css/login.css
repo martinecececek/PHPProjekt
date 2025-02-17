@@ -1,8 +1,9 @@
 /* =========================
    CSS Variables
    ========================= */
+/* Global variables to maintain consistency in colors, shadows, and fonts across the site */
 :root {
-    /* Colors */
+    /* Colors used throughout the site */
     --primary-color: #007bff;
     --primary-dark: #0056b3;
     --primary-darker: #003d7a;
@@ -11,16 +12,19 @@
     --text-color: #333;
     --border-color: #e0e0e0;
 
-    /* Shadows */
+    /* Shadow effects for subtle depth */
     --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
     --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 4px 12px rgba(0, 123, 255, 0.2);
 
-    /* Fonts */
+    /* Base font for the site */
     --font-family-base: Arial, sans-serif;
 }
 
-/* Full-page layout with flexbox centering */
+/* =========================
+   Full-page layout and centering
+   ========================= */
+/* Flex container that centers content vertically and horizontally */
 .wrapper {
     display: flex;
     align-items: center;
@@ -39,7 +43,7 @@
     padding: 25px;
 }
 
-/* Blue header like the forum post title */
+/* Blue header styled similar to forum post titles */
 .login-header {
     background: var(--primary-color);
     color: var(--light-color);
@@ -51,14 +55,17 @@
     margin-bottom: 20px;
 }
 
-/* Login form layout */
+/* =========================
+   Login Form Styles
+   ========================= */
+/* Layout for the login form elements arranged vertically */
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Label styling */
+/* Styling for form labels to emphasize field names */
 .login-form label {
     font-weight: bold;
     color: var(--text-color);
@@ -66,7 +73,7 @@
     margin-bottom: 3px;
 }
 
-/* Input field styling */
+/* Input field styling with padding and border */
 .login-form input {
     width: 360px;
     padding: 12px;
@@ -77,7 +84,7 @@
     background: #f9f9f9;
 }
 
-/* Input focus effect */
+/* Focus state for input fields to indicate interactivity */
 .login-form input:focus {
     border-color: var(--primary-color);
     box-shadow: var(--shadow-hover);
@@ -85,13 +92,13 @@
     background: var(--light-color);
 }
 
-/* Blue placeholder text */
+/* Placeholder text styled with a blue tint */
 .login-form input::placeholder {
     color: #888;
     opacity: 0.8;
 }
 
-/* Login button styling */
+/* Styling for the login button with a gradient background */
 .login-button {
     width: 100%;
     padding: 12px;
@@ -106,13 +113,13 @@
     margin-top: 10px;
 }
 
-/* Hover effect on button */
+/* Hover state for login button to provide visual feedback */
 .login-button:hover {
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
     transform: translateY(-2px);
 }
 
-/* Register link */
+/* Styling for the footer area in the login form that contains the register link */
 .login-footer {
     text-align: center;
     margin-top: 15px;
@@ -120,6 +127,7 @@
     color: var(--text-color);
 }
 
+/* Link styling for register/login links in the footer */
 .login-footer a {
     color: var(--primary-dark);
     text-decoration: none;
@@ -127,6 +135,7 @@
     transition: color 0.3s ease;
 }
 
+/* Hover effect for footer links */
 .login-footer a:hover {
     color: var(--primary-darker);
     text-decoration: underline;
@@ -135,6 +144,7 @@
 /* =========================
    Reset and Base Styles
    ========================= */
+/* Remove default margins and paddings, and set background and font properties */
 html,
 body {
     margin: 0;
@@ -146,21 +156,23 @@ body {
     text-decoration: none !important;
 }
 
+/* Ensure links have no underlines globally */
 a {
     text-decoration: none;
 }
 
+/* Utility class for title links */
 .title-a {
     color: var(--light-color);
 }
 
-/* Flex layout on body for sticky footer */
+/* Use flex layout on body for a sticky footer effect */
 body {
     display: flex;
     flex-direction: column;
 }
 
-/* Wrapper for header and content */
+/* Wrapper for header and content to grow and fill available space */
 .wrapper {
     flex: 1;
     display: flex;
@@ -170,12 +182,14 @@ body {
 /* =========================
    Header Styling
    ========================= */
+/* Site header with a primary background color and padding */
 .site-header {
     background: var(--primary-color);
     color: var(--light-color);
     padding: 15px 20px;
 }
 
+/* Container for header content centered with max width */
 .header-container {
     max-width: 800px;
     margin: 0 auto;
@@ -184,6 +198,7 @@ body {
     align-items: center;
 }
 
+/* Site title styling in the header */
 .site-title {
     color: var(--light-color);
     text-decoration: none;
@@ -191,6 +206,7 @@ body {
     margin: 0;
 }
 
+/* Login button in the header */
 .login-btn {
     background: var(--light-color);
     color: var(--primary-color);
@@ -202,6 +218,7 @@ body {
     transition: background 0.3s ease;
 }
 
+/* Hover state for the header login button */
 .login-btn:hover {
     background: #e0e0e0;
 }
@@ -209,6 +226,7 @@ body {
 /* =========================
    Create New Thread Button Styling
    ========================= */
+/* Styling for the button/link that creates a new thread */
 .create-thread-link {
     display: inline-block;
     background: linear-gradient(45deg, #ffffff, #e6f2ff);
@@ -223,6 +241,7 @@ body {
     box-shadow: var(--shadow-light);
 }
 
+/* Hover effect for the create thread link */
 .create-thread-link:hover {
     background: var(--primary-color);
     color: var(--light-color);
@@ -231,6 +250,7 @@ body {
 /* =========================
    Forum & Thread Styling
    ========================= */
+/* Forum container styling with max width and centered margin */
 .forum {
     max-width: 800px;
     margin: 20px auto;
@@ -238,6 +258,7 @@ body {
     flex: 1;
 }
 
+/* Styling for individual thread containers */
 .thread {
     background: var(--light-color);
     border-radius: 8px;
@@ -247,15 +268,17 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* Hover effect on thread container to lift it slightly */
 .thread:hover {
     transform: translateY(-2px);
 }
 
-/* Hidden checkbox used for toggling replies */
+/* Hidden checkbox used for toggling the display of replies (controlled via sibling selector) */
 .toggle-thread {
     display: none;
 }
 
+/* Container for the thread header with background and cursor pointer */
 .thread-header-container {
     display: flex;
     justify-content: space-between;
@@ -266,6 +289,7 @@ body {
     cursor: pointer;
 }
 
+/* Thread header link styling */
 .thread-header {
     flex: 1;
     text-decoration: none;
@@ -273,16 +297,19 @@ body {
     display: block;
 }
 
+/* Styling for the thread title inside the header */
 .thread-info h3 {
     margin: 0;
     font-size: 1.2em;
 }
 
+/* Meta information (like author and date) in the thread header */
 .thread-meta {
     font-size: 0.9em;
     opacity: 0.9;
 }
 
+/* Reply button styling within a thread */
 .reply-btn {
     background: var(--light-color);
     border: none;
@@ -293,19 +320,26 @@ body {
     transition: background 0.3s ease;
 }
 
+/* Hover state for the reply button */
 .reply-btn:hover {
     background: #e0e0e0;
 }
 
+/* Styling for the thread body section containing the main content */
 .thread-body {
     padding: 15px;
     border-top: 1px solid #eee;
 }
 
+/* Ensure paragraphs within the thread body have no margin */
 .thread-body p {
     margin: 0;
 }
 
+/* =========================
+   Thread Replies Toggle
+   ========================= */
+/* Initially hide replies with zero max-height and no padding */
 .thread-replies {
     max-height: 0;
     overflow: hidden;
@@ -315,11 +349,16 @@ body {
     padding: 0 15px;
 }
 
+/* When the toggle checkbox is checked, expand the replies */
 .toggle-thread:checked ~ .thread-replies {
     max-height: 500px; /* adjust if needed */
     padding: 15px;
 }
 
+/* =========================
+   Reply Styling
+   ========================= */
+/* Styling for individual replies */
 .reply {
     margin-bottom: 15px;
     padding: 10px;
@@ -328,20 +367,24 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+/* Remove bottom margin for the last reply */
 .reply:last-child {
     margin-bottom: 0;
 }
 
+/* Layout for the header of a reply (author and time) */
 .reply-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
 }
 
+/* Bold styling for the reply author */
 .reply-author {
     font-weight: bold;
 }
 
+/* Styling for the reply timestamp */
 .reply-time {
     font-size: 0.8em;
     color: #999;
@@ -350,6 +393,7 @@ body {
 /* =========================
    Modern Reply Form Styling (Using Input Text)
    ========================= */
+/* Container styling for the reply form */
 .reply-form {
     margin: 20px auto;
     max-width: 600px;
@@ -358,6 +402,7 @@ body {
     padding: 0 10px;
 }
 
+/* Styling for the reply input field */
 .reply-form .reply-input {
     flex: 1;
     padding: 12px 15px;
@@ -370,12 +415,14 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Focus state for reply input for better accessibility */
 .reply-form .reply-input:focus {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: var(--shadow-hover);
 }
 
+/* Styling for the send reply button */
 .send-reply-btn {
     padding: 12px 25px;
     border: none;
@@ -393,7 +440,7 @@ body {
     text-decoration: none !important;
 }
 
-/* Ensure no underline for any state of the send-reply button link */
+/* Ensure no text underline for any state of send-reply button links */
 a.send-reply-btn,
 a.send-reply-btn:link,
 a.send-reply-btn:visited,
@@ -403,6 +450,7 @@ a.send-reply-btn:focus {
     text-decoration: none !important;
 }
 
+/* Hover state for the send reply button */
 .send-reply-btn:hover {
     background: linear-gradient(
         135deg,
@@ -416,6 +464,7 @@ a.send-reply-btn:focus {
 /* =========================
    Footer Styling
    ========================= */
+/* Styling for the site footer */
 .site-footer {
     background: var(--primary-color);
     color: var(--light-color);
@@ -424,6 +473,7 @@ a.send-reply-btn:focus {
     margin-top: auto;
 }
 
+/* Centering the footer content within a max-width container */
 .footer-container {
     max-width: 800px;
     margin: 0 auto;

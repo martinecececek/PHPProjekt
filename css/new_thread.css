@@ -4,30 +4,32 @@
 /* =========================
    CSS Variables
    ========================= */
+/* Global variables for colors, shadows, and fonts to ensure consistent styling */
 :root {
     /* Colors */
-    --primary-color: #007bff;
-    --primary-dark: #0056b3;
-    --primary-darker: #003d7a;
-    --background-color: #f5f7fa;
-    --light-color: #fff;
-    --text-color: #333;
-    --border-color: #e0e0e0;
+    --primary-color: #007bff; /* Main primary color */
+    --primary-dark: #0056b3; /* Darker shade of primary */
+    --primary-darker: #003d7a; /* Even darker shade for hover effects */
+    --background-color: #f5f7fa; /* Light background color */
+    --light-color: #fff; /* White color used for backgrounds/text */
+    --text-color: #333; /* Standard text color */
+    --border-color: #e0e0e0; /* Border color for inputs and containers */
 
     /* Shadows */
-    --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 4px 12px rgba(0, 123, 255, 0.2);
+    --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for slight elevation */
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1); /* Medium shadow for cards */
+    --shadow-hover: 0 4px 12px rgba(0, 123, 255, 0.2); /* Hover shadow effect using primary color */
 
     /* Fonts */
     --font-family-base: Calibri, sans-serif; /* General base font */
-    --forum-font: 'Roboto', sans-serif; /* Forum area font */
-    --thread-font: 'Merriweather', serif; /* Thread text font */
+    --forum-font: 'Roboto', sans-serif; /* Font used in forum sections */
+    --thread-font: 'Merriweather', serif; /* Font for thread content */
 }
 
 /* =========================
    Reset and Base Styles
    ========================= */
+/* Remove default spacing and set global background, font, and text styles */
 html,
 body {
     margin: 0;
@@ -39,6 +41,7 @@ body {
     text-decoration: none !important;
 }
 
+/* Use flex layout for the body to manage vertical stacking */
 body {
     display: flex;
     flex-direction: column;
@@ -49,7 +52,7 @@ a {
     text-decoration: none;
 }
 
-/* Utility class */
+/* Utility class for title links ensuring they use the light color */
 .title-a {
     color: var(--light-color);
 }
@@ -57,17 +60,17 @@ a {
 /* =========================
    Layout Wrappers
    ========================= */
-/* For full-page centering (e.g. login page) */
+/* Wrapper for full-page centering (useful for login page, etc.) */
 .wrapper-center {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 110vh;
+    height: 110vh; /* Slightly taller than the viewport for centering */
     background: var(--background-color);
     padding: 20px;
 }
 
-/* For page header + content layouts */
+/* Wrapper for header plus content layouts */
 .wrapper {
     flex: 1;
     display: flex;
@@ -77,15 +80,17 @@ a {
 /* =========================
    Login Page Styles (adapted for Create Thread)
    ========================= */
+/* Container for login or create thread forms styled as a card */
 .login-container {
     width: 380px;
     background: var(--light-color);
     border-radius: 12px;
     box-shadow: var(--shadow-medium);
     padding: 25px;
-    margin: 40px auto;
+    margin: 40px auto; /* Center horizontally with margin */
 }
 
+/* Header section inside the login container */
 .login-header {
     background: var(--primary-color);
     color: var(--light-color);
@@ -97,12 +102,14 @@ a {
     margin-bottom: 20px;
 }
 
+/* Form layout for login/create thread forms */
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
+/* Label styling for form fields */
 .login-form label {
     font-weight: bold;
     color: var(--text-color);
@@ -110,6 +117,7 @@ a {
     margin-bottom: 3px;
 }
 
+/* Styling for input, select, and textarea elements */
 .login-form input,
 .login-form select,
 .login-form textarea {
@@ -122,6 +130,7 @@ a {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Focus state for input, select, and textarea to enhance accessibility */
 .login-form input:focus,
 .login-form select:focus,
 .login-form textarea:focus {
@@ -131,12 +140,14 @@ a {
     background: var(--light-color);
 }
 
+/* Styling for placeholder text in input and textarea */
 .login-form input::placeholder,
 .login-form textarea::placeholder {
     color: #888;
     opacity: 0.8;
 }
 
+/* Styling for the primary button in the form */
 .login-button {
     width: 100%;
     padding: 12px;
@@ -151,11 +162,13 @@ a {
     margin-top: 10px;
 }
 
+/* Hover effect for the primary button */
 .login-button:hover {
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
     transform: translateY(-2px);
 }
 
+/* Footer section of the form for additional links (e.g., register or login) */
 .login-footer {
     text-align: center;
     margin-top: 15px;
@@ -163,12 +176,14 @@ a {
     color: var(--text-color);
 }
 
+/* Link styling in the footer */
 .login-footer a {
     color: var(--primary-dark);
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
+/* Hover state for footer links */
 .login-footer a:hover {
     color: var(--primary-darker);
     text-decoration: underline;
@@ -177,12 +192,14 @@ a {
 /* =========================
    Header Styling
    ========================= */
+/* Styling for the site header bar */
 .site-header {
     background: var(--primary-color);
     color: var(--light-color);
     padding: 15px 20px;
 }
 
+/* Container for header content with max-width for centered layout */
 .header-container {
     max-width: 600px;
     margin: 0 auto;
@@ -191,6 +208,7 @@ a {
     align-items: center;
 }
 
+/* Site title styling in the header */
 .site-title {
     color: var(--light-color);
     text-decoration: none;
@@ -198,6 +216,7 @@ a {
     margin: 0;
 }
 
+/* Styling for the login button displayed in the header */
 .login-btn {
     background: var(--light-color);
     color: var(--primary-color);
@@ -209,6 +228,7 @@ a {
     transition: background 0.3s ease;
 }
 
+/* Hover state for the header login button */
 .login-btn:hover {
     background: #e0e0e0;
 }
@@ -216,6 +236,7 @@ a {
 /* =========================
    Create New Thread Button
    ========================= */
+/* Styling for the button/link to create a new thread */
 .create-thread-link {
     display: inline-block;
     background: linear-gradient(45deg, #ffffff, #e6f2ff);
@@ -229,6 +250,7 @@ a {
     box-shadow: var(--shadow-light);
 }
 
+/* Hover state for the create thread button */
 .create-thread-link:hover {
     background: var(--primary-color);
     color: var(--light-color);
@@ -237,6 +259,7 @@ a {
 /* =========================
    Footer Styling
    ========================= */
+/* Styling for the site footer */
 .site-footer {
     background: var(--primary-color);
     color: var(--light-color);
@@ -245,18 +268,15 @@ a {
     margin-top: auto;
 }
 
+/* Container for footer content to center it within a max width */
 .footer-container {
     max-width: 600px;
     margin: 0 auto;
 }
 
+/* Utility class for resizable elements (e.g., auto-resizing textarea) */
 .resizable {
     min-height: 50px;
     resize: none;
     overflow: hidden;
 }
-
-
-
-
-
