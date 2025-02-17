@@ -155,16 +155,25 @@ class ThreadComponent
         $posted_ago = time() - intval($post_created);
 
         switch (true) {
-            case ($posted_ago >= 86400):
+            case ($post_created >= 31556926): // year
+                $years = floor($posted_ago / 31556926);
+                return $years . "year" . ($years > 1 ? "s" : "") . "ago";
+            case ($posted_ago >= 2629743): //month
+                $months = floor($posted_ago / 2629743);
+                return $months . "month" . ($months > 1 ? "s" : "") . "ago";
+            case ($posted_ago >= 604800): //week
+                $weeks = floor($posted_ago / 604800);
+                return $weeks . "week" . ($weeks > 1 ? "s" : "") . "ago";
+            case ($posted_ago >= 86400): // days
                 $days = floor($posted_ago / 86400);
                 return $days . " day" . ($days > 1 ? "s" : "") . " ago";
-            case ($posted_ago >= 3600):
+            case ($posted_ago >= 3600): //hours
                 $hours = floor($posted_ago / 3600);
                 return $hours . " hour" . ($hours > 1 ? "s" : "") . " ago";
-            case ($posted_ago >= 60):
+            case ($posted_ago >= 60): //minutes
                 $minutes = floor($posted_ago / 60);
                 return $minutes . " minute" . ($minutes > 1 ? "s" : "") . " ago";
-            case ($posted_ago < 60):
+            case ($posted_ago < 60): //less than minute
                 return "less than a minute ago";
             default:
                 return "ERROR: data not found";

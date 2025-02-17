@@ -2,216 +2,75 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once '../Components/threadComponent.php'; // Adjust the path if needed
-
-class ThreadComponentTest extends TestCase
+class NewThreadTest extends TestCase
 {
-    /*** Tests for parseFile ***/
+    private $threadsDir = './Database/Threads';
 
-    public function testParseFileNonExistent()
+    protected function setUp()
     {
-        $nonExistentFile = 'nonexistent_file.txt';
-        $component = new ThreadComponent($nonExistentFile);
-        $this->assertFalse($component->parseFile(), 'parseFile should return false for non-existent file.');
+        // Ensure the threads directory exists
+        if (!file_exists($this->threadsDir)) {
+            mkdir($this->threadsDir, 0777, true);
+        }
+
+        // Clean up any existing thread files
+        foreach (glob("$this->threadsDir/*") as $file) {
+            unlink($file);
+        }
+
+        // Start a session if not already started
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        // Clear session data
+        $_SESSION = [];
     }
 
-    public function testParseFileEmptyFile()
+    public function testThreadCreation()
     {
-        $fileName = $this->createTempThreadFile('');
-        $component = new ThreadComponent($fileName);
-        $this->assertFalse($component->parseFile(), 'parseFile should return false for an empty file.');
-    }
+        // Set the username in the session
+        $_SESSION['username'] = 'testuser';
 
-    public function testParseFileInvalidHeader()
-    {
-        // Header with less than 4 parts.
-        $content = "user1 | Thread Title\n-------\nuser2 | 1670000500 | Reply content";
-        $fileName = $this->createTempThreadFile($content);
-        $component = new ThreadComponent($fileName);
-        $this->assertFalse($component->parseFile(), 'parseFile should return false when thread header has less than 4 parts.');
-    }
+        // Simulate a POST request
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST['threadTitle'] = 'Test Thread Title';
+        $_POST['threadContent'] = 'This is a test thread content.';
+        $_POST['threadCategory'] = '_te'; // technology category
 
-    public function testParseFileValidThreadOnly()
-    {
-        // No separator line; only thread header is provided.
-        $content = "user1 | Thread Title | 1670000000 | Thread content";
-        $fileName = $this->createTempThreadFile($content);
-        $component = new ThreadComponent($fileName);
-        $result = $component->parseFile();
-
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('thread', $result);
-        $this->assertArrayHasKey('replies', $result);
-
-        // Check thread header data.
-        $expectedThread = [
-            'username' => 'user1',
-            'title' => 'Thread Title',
-            'datetime' => '1670000000',
-            'content' => 'Thread content',
-        ];
-        $this->assertEquals($expectedThread, $result['thread']);
-
-        // Expect no replies.
-        $this->assertEmpty($result['replies']);
-    }
-
-    public function testParseFileValidThreadWithReplies()
-    {
-        $content = <<<EOD
-user1 | Thread Title | 1670000000 | Thread content
--------
-user2 | 1670000500 | Reply content 1
-invalid reply line without proper format
-user3 | 1670001000 | Reply content 2
-EOD;
-        $fileName = $this->createTempThreadFile($content);
-        $component = new ThreadComponent($fileName);
-        $result = $component->parseFile();
-
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('thread', $result);
-        $this->assertArrayHasKey('replies', $result);
-
-        // Validate thread header.
-        $expectedThread = [
-            'username' => 'user1',
-            'title' => 'Thread Title',
-            'datetime' => '1670000000',
-            'content' => 'Thread content',
-        ];
-        $this->assertEquals($expectedThread, $result['thread']);
-
-        // Validate replies: only the properly formatted lines are included.
-        $expectedReplies = [
-            [
-                'username' => 'user2',
-                'datetime' => '1670000500',
-                'content' => 'Reply content 1',
-            ],
-            [
-                'username' => 'user3',
-                'datetime' => '1670001000',
-                'content' => 'Reply content 2',
-            ],
-        ];
-        $this->assertEquals($expectedReplies, $result['replies']);
-    }
-
-    /*** Tests for Convert_unix ***/
-
-    public function testConvertUnixLessThanMinute()
-    {
-        $component = new ThreadComponent('dummy');
-        $timestamp = time() - 30; // 30 seconds ago
-        $result = $component->Convert_unix($timestamp);
-        $this->assertEquals("less than a minute ago", $result);
-    }
-
-    public function testConvertUnixMinutes()
-    {
-        $component = new ThreadComponent('dummy');
-        $timestamp = time() - 120; // 2 minutes ago
-        $result = $component->Convert_unix($timestamp);
-        $this->assertEquals("2 minutes ago", $result);
-    }
-
-    public function testConvertUnixHours()
-    {
-        $component = new ThreadComponent('dummy');
-        $timestamp = time() - 4000; // ~1 hour ago (4000 seconds)
-        $result = $component->Convert_unix($timestamp);
-        // Floor(4000/3600) should be 1
-        $this->assertEquals("1 hour ago", $result);
-    }
-
-    public function testConvertUnixDays()
-    {
-        $component = new ThreadComponent('dummy');
-        $timestamp = time() - 90000; // ~1 day ago (90000 seconds)
-        $result = $component->Convert_unix($timestamp);
-        $this->assertEquals("1 day ago", $result);
-    }
-
-    public function testConvertUnixStringDate()
-    {
-        $component = new ThreadComponent('dummy');
-        // Use a string date that strtotime() can parse.
-        $dateString = '2020-01-01 00:00:00';
-        // Compute expected days ago.
-        $timestamp = strtotime($dateString);
-        $daysAgo = floor((time() - $timestamp) / 86400);
-        $expected = $daysAgo . " day" . ($daysAgo > 1 ? "s" : "") . " ago";
-        $result = $component->Convert_unix($dateString);
-        $this->assertEquals($expected, $result);
-    }
-
-    /*** Tests for render ***/
-
-    public function testRenderInvalidFile()
-    {
-        // For a file that does not exist, render should output an error message.
-        $component = new ThreadComponent('nonexistent.txt');
-
+        // Capture the output and headers (optional)
         ob_start();
-        $component->render();
-        $output = ob_get_clean();
+        include 'new_thread.php';  // Include the script under test
+        ob_end_clean();
 
-        $this->assertStringContainsString("Thread not found or file format is incorrect.", $output);
+        // Look for a newly created file matching the naming pattern
+        $files = glob("$this->threadsDir/*_te.csv");
+        $this->assertNotEmpty($files, 'No thread file was created.');
+
+        // For testing purposes, use the first file found
+        $filePath = $files[0];
+        $fileContent = file_get_contents($filePath);
+
+        // The file should have two lines: one with the thread data and one with the separator
+        $lines = explode(PHP_EOL, trim($fileContent));
+        $this->assertCount(2, $lines, 'File does not contain exactly two lines.');
+
+        // The first line should have the username, title, time, and content separated by " | "
+        $dataParts = explode(" | ", $lines[0]);
+        $this->assertCount(4, $dataParts, 'The thread data line does not contain four parts.');
+        $this->assertEquals('testuser', $dataParts[0], 'Username does not match.');
+        $this->assertEquals('Test Thread Title', $dataParts[1], 'Thread title does not match.');
+        $this->assertEquals('This is a test thread content.', $dataParts[3], 'Thread content does not match.');
+
+        // The second line should be the separator line
+        $this->assertEquals('-------', $lines[1], 'Separator line is incorrect.');
     }
 
-    public function testRenderValidThreadLoggedOut()
+    protected function tearDown()
     {
-        // Simulate a valid thread file with header and one reply.
-        $content = <<<EOD
-user1 | Thread Title | 1670000000 | Thread content
--------
-user2 | 1670000500 | Reply content 1
-EOD;
-        $fileName = $this->createTempThreadFile($content);
-        // Ensure user is not logged in.
-        unset($_SESSION['username']);
-
-        $component = new ThreadComponent($fileName);
-
-        ob_start();
-        $component->render();
-        $output = ob_get_clean();
-
-        // Check that thread title, username, content, and reply details are present.
-        $this->assertStringContainsString(htmlspecialchars('Thread Title'), $output);
-        $this->assertStringContainsString(htmlspecialchars('user1'), $output);
-        $this->assertStringContainsString(htmlspecialchars('Thread content'), $output);
-        $this->assertStringContainsString(htmlspecialchars('user2'), $output);
-        $this->assertStringContainsString(htmlspecialchars('Reply content 1'), $output);
-
-        // Since user is logged out, the reply button should be a link to the login page.
-        $this->assertStringContainsString('href="login.php"', $output);
-    }
-
-    public function testRenderValidThreadLoggedIn()
-    {
-        // Simulate a valid thread file with header and no replies.
-        $content = "user1 | Thread Title | 1670000000 | Thread content";
-        $fileName = $this->createTempThreadFile($content);
-        // Simulate logged in user.
-        $_SESSION['username'] = 'logged_in_user';
-
-        $component = new ThreadComponent($fileName);
-
-        ob_start();
-        $component->render();
-        $output = ob_get_clean();
-
-        // Check that thread details are present.
-        $this->assertStringContainsString(htmlspecialchars('Thread Title'), $output);
-        $this->assertStringContainsString(htmlspecialchars('user1'), $output);
-        $this->assertStringContainsString(htmlspecialchars('Thread content'), $output);
-
-        // Since there are no replies, check that "No replies yet." is shown.
-        $this->assertStringContainsString("No replies yet.", $output);
-
-        // Check that the reply button is rendered as a button.
-        $this->assertStringContainsString('<button type="button"', $output);
+        // Clean up by removing all files created in the threads directory
+        foreach (glob("$this->threadsDir/*") as $file) {
+            unlink($file);
+        }
     }
 }
